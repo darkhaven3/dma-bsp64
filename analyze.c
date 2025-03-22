@@ -351,14 +351,23 @@ static int SidedefCompare(const void *p1, const void *p2)
 
   // compare textures
 
-  comp = memcmp(A->upper_tex, B->upper_tex, sizeof(A->upper_tex));
+  //dma 3-9-2025: for doom 64
+  if(A->upper_index != B->upper_index) return 1;
+  if(A->lower_index != B->lower_index) return 1;
+  if(A->mid_index != B->mid_index) return 1;
+
+  return 0;
+
+/*
+  comp = memcmp(A->upper_index, B->upper_index, sizeof(uint16_g));
   if (comp) return comp;
   
-  comp = memcmp(A->lower_tex, B->lower_tex, sizeof(A->lower_tex));
+  comp = memcmp(A->lower_index, B->lower_index, sizeof(uint16_g));
   if (comp) return comp;
   
-  comp = memcmp(A->mid_tex, B->mid_tex, sizeof(A->mid_tex));
+  comp = memcmp(A->mid_index, B->mid_index, sizeof(uint16_g));
   if (comp) return comp;
+*/
 
   // sidedefs must be the same
   return 0;
